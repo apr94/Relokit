@@ -17,6 +17,7 @@
    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script type="text/javascript" src="js/meny.js"></script> 
     <script src="js/facebook.js"></script>
+	<script src="js/animatemenu.js"></script>
 
   
 
@@ -47,13 +48,14 @@
 
 <div id="mapcontainer">
    <div id="map-canvas"></div>
-   <div id="mask"></div>
+   <div id="Straight-mask"></div>
    <div id="fb"><fb:login-button show-faces="true" max-rows="1" autologoutlink="true"></fb:login-button></div>
    <div id="fb-container"></div>
    <div id="fb_religion">You seem to be Christian. Want to see nearby churches? <a onclick="toggleVisibility('fb_religion')"><u>Nope</u></a><br/><button onclick="showMarkers_religion()">Generate</button>  <button onclick="removeMarkers()">Clear</button></div>
    <div id="arrow"></div>
    <div id="door-knob"></div>
    <div id="place-markers"  onclick="place_some_markers()"></div>
+   <div class="click-menu" onclick="expand()"></div>
 </div>
 
    <script src="js/menuInitScript.js" charset="utf-8"></script>
