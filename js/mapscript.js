@@ -3,7 +3,7 @@ var hasStarted = false; // if hasStarted is true, user can now input amenities c
 var choices_latlon = []; // User's input of amenities location in lat and lon
 var houses_latlon = []; // Houses' lat and lon that are scraped
 var selections = 0;
-var houseObjectsArray;
+var houseObjectsArray = new Array();
 
 /** START CONTROL BUTTON */
 function StartControl(controlDiv, map) {
@@ -107,7 +107,7 @@ for (var i = 0; i < housedata.length; i++) {
 		  myHouse.lon = longitude;
 		  var desiredLocations = new Array();
 		  myHouse.desiredLocations = desiredLocations;
-		  //houseObjectsArray.push(myHouse);
+		  houseObjectsArray.push(myHouse);
 		
   		  var house_position = new google.maps.LatLng(latitude,longitude);
  		  	displayHouseMarker(house_position, map);
