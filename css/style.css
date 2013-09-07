@@ -6,13 +6,26 @@
     height: 100%;
   }
   body{
-	background: url('home_interior.jpg') no-repeat;
-	background-size: 100% 100%;
+	/*background: url('home_interior.jpg') no-repeat;
+	background-size: 100% 100%;*/
+	
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(left, #7d7e7d 0%, #0e0e0e 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#7d7e7d), color-stop(100%,#0e0e0e)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, #7d7e7d 0%,#0e0e0e 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, #7d7e7d 0%,#0e0e0e 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, #7d7e7d 0%,#0e0e0e 100%); /* IE10+ */
+	background: linear-gradient(to right, #7d7e7d 0%,#0e0e0e 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=1 ); /* IE6- */
+	
+	
+	overflow:hidden;
+	
   }
   
 	#menu {
 		height: 100%;
-		width: 200px;
+		width: 600px;
 		float: left;
 border-style:solid;
 		background-color: #ffffff;
@@ -56,6 +69,9 @@ overflow: auto;
 		border-radius:100%;
 		
 		z-index:			999;
+		
+		/* new changes, can merge */
+		display:none;
 	}
 	
 	
@@ -72,6 +88,12 @@ overflow: auto;
 		width:83.3%;
 		position:absolute;
 		z-index:10;
+		
+		/* new changes, can merge */
+		top:13%;
+		height:74%;
+		width:86.3%;
+		left: 6%;
 	}
 	
 	#mask {
@@ -173,6 +195,43 @@ overflow: auto;
 	padding-right: 4px;
 }
 
+
+
+
+#Straight-mask {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	height: 100%;
+	width: 100%;
+
+	background: url('Straight-mask.png') no-repeat;
+	background-size: 100% 100%;
+
+	pointer-events:none;
+	z-index:10;
+}
+
+.click-menu {
+	height:100%;
+	/*width: 350px;
+	left:80%;*/
+	position: absolute;
+	z-index:999;
+	width: 40px;
+	left:97.4%;
+	
+	
+	background: #eeeeee; /* Old browsers */
+	background: -moz-linear-gradient(left, #eeeeee 0%, #eeeeee 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#eeeeee), color-stop(100%,#eeeeee)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, #eeeeee 0%,#eeeeee 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, #eeeeee 0%,#eeeeee 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, #eeeeee 0%,#eeeeee 100%); /* IE10+ */
+	background: linear-gradient(to right, #eeeeee 0%,#eeeeee 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 */
+}
 	
 	
 
