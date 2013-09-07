@@ -1,0 +1,3 @@
+$( "#map-canvas" ).click(function() {
+console.log("clicked");
+});

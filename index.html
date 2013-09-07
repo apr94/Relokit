@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Relokit</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/formCSS.css">
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+    <script src="lib/d3/d3.js" charset="utf-8"></script>
+    <script src="js/jquery.js" charset="utf-8"></script>
+    <script src="js/mapscript.js"></script>
+	<script src="js/mapcontrols.js"></script>
+   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/meny.js"></script> 
+    <script src="js/facebook.js"></script>
+
+  
+
+  </head>
+  <body>
+<div id="fb-root"></div>
+<div id="menu">
+<div id="formdiv">
+<form style="width: 280px">
+<p>
+<label for="amount">Rent range per month:</label>
+<input type="text" id="amountPrice" style="border: 0; color: #f6931f; font-weight: bold;" />
+</p>
+<div id="slider-range"></div>
+<p>
+<label for="amount">Minimum number of bedrooms:</label>
+<input type="text" id="amountBedrooms" style="border: 0; color: #f6931f; font-weight: bold;" />
+</p>
+<div id="slider-range-max"></div>
+</form>
+    </div>
+<div id="locationsdiv">
+
+</div>
+</div>
+
+
+
+<div id="mapcontainer">
+   <div id="map-canvas"></div>
+   <div id="mask"></div>
+   <div id="fb"><fb:login-button show-faces="true" max-rows="1" autologoutlink="true"></fb:login-button></div>
+   <div id="fb-container"></div>
+   <div id="fb_religion">You seem to be Christian. Want to see nearby churches? <a onclick="toggleVisibility('fb_religion')"><u>Nope</u></a><br/><button onclick="showMarkers_religion()">Generate</button>  <button onclick="removeMarkers()">Clear</button></div>
+   <div id="arrow"></div>
+   <div id="door-knob"></div>
+   <div id="place-markers"  onclick="place_some_markers()"></div>
+</div>
+
+   <script src="js/menuInitScript.js" charset="utf-8"></script>
+   <script src="js/menyInitScript.js" charset="utf-8"></script>
+  </body>
+</html>
+
+
+
