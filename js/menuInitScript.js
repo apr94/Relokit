@@ -28,4 +28,5 @@ $( "#amountBedrooms" ).val( ui.value );
 }
 });
 $( "#amountBedrooms" ).val( $( "#slider-range-max" ).slider( "value" ) );
+
 });

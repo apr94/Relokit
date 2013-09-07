@@ -4,15 +4,30 @@
     margin: 0;
     padding: 0;
     height: 100%;
+    font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+font-size: 11px;
   }
   body{
-	background: url('home_interior.jpg') no-repeat;
-	background-size: 100% 100%;
+	/*background: url('home_interior.jpg') no-repeat;
+	background-size: 100% 100%;*/
+	
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(left, #7d7e7d 0%, #0e0e0e 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#7d7e7d), color-stop(100%,#0e0e0e)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, #7d7e7d 0%,#0e0e0e 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, #7d7e7d 0%,#0e0e0e 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, #7d7e7d 0%,#0e0e0e 100%); /* IE10+ */
+	background: linear-gradient(to right, #7d7e7d 0%,#0e0e0e 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=1 ); /* IE6- */
+	
+	
+	overflow:hidden;
+	
   }
   
-	#menu {
+	#description {
 		height: 100%;
-		width: 200px;
+		width: 600px;
 		float: left;
 border-style:solid;
 		background-color: #ffffff;
@@ -56,6 +71,9 @@ overflow: auto;
 		border-radius:100%;
 		
 		z-index:			999;
+		
+		/* new changes, can merge */
+		display:none;
 	}
 	
 	
@@ -72,6 +90,12 @@ overflow: auto;
 		width:83.3%;
 		position:absolute;
 		z-index:10;
+		
+		/* new changes, can merge */
+		top:13%;
+		height:74%;
+		width:86.3%;
+		left: 6%;
 	}
 	
 	#mask {
@@ -99,36 +123,82 @@ overflow: auto;
 
 }
 	
-	#fb {
-		left: 78%;
-		position: absolute;
-		width:235px;
-		height:75px;
-		z-index: 999;
-	}
-	
 	#fb-container {
-			left: 78%;
+		left: 82%;
 		position: absolute;
 		background-color: white;
-		opacity: 0.7;
-		width:235px;
-		height:75px;
+		border: 1px solid #aaa;
+		border-top-color: #315c99;
+		width:140px;
+		height:70px;
 		z-index: 99;
 	}
 	
+	.fb_text {
+		padding-left:2px;
+	}
+	
 	#fb_religion {
+	position: absolute;
+	visibility: hidden;	
+	border: 1px solid #aaa;
+	border-top-color: #315c99;
+	z-index: 9999;
+	width: 220px;
+	height: 70px;
+	top: 0%;
+	left: 66%;
+	background-color: white;
+}
+
+.fb_header {
+	padding: 5px 5px 5px 5px;
+	border-bottom: 1px solid #d8dfea;
+	background-color: #edeff4;
+}
+
+.fb_button {
+	line-height: 10px;
+	padding: 2px 6px 3px;
+	font-weight: bold;
+	display: inline-block;
+	border: 1px solid black;
+
+	white-space: nowrap;
+	border-spacing: 0;
+	color: #fff;
+	cursor: pointer;
+	vertical-align: top;
+	background-color: #5f78ab;
+}
+
+
+
+	#fb_relationship {
+	position: absolute;
+	visibility: hidden;	
+	border: 1px solid #aaa;
+	border-top-color: #315c99;
+	z-index: 9999;
+	width: 220px;
+	height: 70px;
+	top: 0%;
+	left: 50%;
+	background-color: white;
+}
+
+	#fb_likes {
 	position: absolute;
 	visibility: hidden;	
 	z-index: 9999;
 	width: 220px;
 	height: 50px;
 	top: 2%;
-	left: 58%;
+	left: 32%;
 	background-color: white;
 	opacity: 0.7;
-
-}
+	
+	}
 
 #place-markers {
 	width:				175px;
@@ -173,8 +243,60 @@ overflow: auto;
 	padding-right: 4px;
 }
 
+
+
+
+#Straight-mask {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	height: 100%;
+	width: 100%;
+
+	background: url('Straight-mask.png') no-repeat;
+	background-size: 100% 100%;
+
+	pointer-events:none;
+	z-index:10;
+}
+
+#menu {
+	height:100%;
+	border: solid;
+	position: absolute;
+	z-index:999;
+	width: 350px;
+	left:97.4%;
+	overflow: hidden;
+	padding :10px;
+	margin-right: 10px;
 	
 	
+	background: #eeeeee; /* Old browsers */
+	background: -moz-linear-gradient(left, #eeeeee 0%, #eeeeee 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#eeeeee), color-stop(100%,#eeeeee)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, #eeeeee 0%,#eeeeee 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, #eeeeee 0%,#eeeeee 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, #eeeeee 0%,#eeeeee 100%); /* IE10+ */
+	background: linear-gradient(to right, #eeeeee 0%,#eeeeee 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 */
+}
+
+#formdiv{
+overflow:hidden;
+}
+
+form{
+float: left;
+overflow: hidden;
+padding: left;
+}
+	
+#locationsdiv{
+overflow: hidden;
+padding-right: 10px;
+}	
 
 	
 
