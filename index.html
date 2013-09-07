@@ -33,9 +33,10 @@
 <div id="mapcontainer">
    <div id="map-canvas"></div>
    <div id="Straight-mask"></div>
-   <div id="fb"><fb:login-button show-faces="true" max-rows="1" autologoutlink="true"></fb:login-button></div>
-   <div id="fb-container"></div>
-   <div id="fb_religion">You seem to be Christian. Want to see nearby churches? <a onclick="toggleVisibility('fb_religion')"><u>Nope</u></a><br/><button onclick="showMarkers_religion()">Generate</button>  <button onclick="removeMarkers()">Clear</button></div>
+  <div id="fb-container"><div class="fb_header"><b>< Facebook Console<br/></div><div id="fb" class="fb_text"><fb:login-button autologoutlink="true"></fb:login-button></div></b></div>
+   <div id="fb_religion"><div class="fb_header"><b>Place Recommendations</b></div><div class="fb_text"> Your religion is <religion_text></religion_text>.<br/> Would you like to generate places?  <br/><button class="fb_button" onclick="showMarkers('religion')">Generate</button>  <button class="fb_button" onclick="removeMarkers()">Clear</button></div></div>
+   <div id="fb_relationship"><div class="fb_header"><b>Place Recommendations</b></div><div class="fb_text"> You are: <relationship_text></relationship_text>.<br/>Would you like to generate places? <br/><button class="fb_button" onclick="showMarkers('relationship')">Generate</button>  <button class="fb_button" onclick="removeMarkers()">Clear</button></div></div>
+   <div id="fb_likes">From your likes, you seem to <likes></likes> <a onclick="toggleVisibility('fb_likes')"><u>Close</u></a><br/><button onclick="showMarkers('likes')">Generate</button>  <button onclick="removeMarkers()">Clear</button></div>
    <div id="arrow"></div>
    <div id="door-knob"></div>
    <div id="place-markers"  onclick="place_some_markers()"></div>
