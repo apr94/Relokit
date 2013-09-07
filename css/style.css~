@@ -236,18 +236,20 @@ overflow: auto;
 }
 
 #formdiv{
-overflow:hidden;
 }
 
 form{
-float: left;
 overflow: hidden;
-padding: left;
 }
 	
 #locationsdiv{
-overflow: hidden;
-paddin-right: 10px;
+padding-right: 10px;
+}
+
+#buttondiv{
+padding: 5px;
+text-align: center;
+overflow: auto;
 }	
 
 	
