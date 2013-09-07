@@ -2,6 +2,7 @@ var map;
 var hasStarted = false; // if hasStarted is true, user can now input amenities choices
 var choices_latlon = []; // User's input of amenities location in lat and lon
 var houses_latlon = []; // Houses' lat and lon that are scraped
+var selections = 0;
 
 /** START CONTROL BUTTON */
 function StartControl(controlDiv, map) {
@@ -103,6 +104,9 @@ for (var i = 0; i < housedata.length; i++) {
 	}); 
 	}
 });
+
+
+
 function initialize() {
   var mapOptions = {
     zoom: 16,
@@ -119,9 +123,26 @@ if (hasStarted) {
 	geocoder.geocode({'latLng': e.latLng}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           if (results[1]) {
-    var newDiv = "<h3>" +results[1].formatted_address + "</h3><div><p><label>Importance:</label></p></div>";
-    $('#locationsdiv').append(newDiv)
+	selections++; 
+
+    var newDiv = "<h3>" +results[1].formatted_address + "</h3><div id = result" + selections +"><p><label id = slidertext"+selections+">Importance:</label></p><div id = slider"+selections+"></div></div>";
+
+
+    $('#locationsdiv').append(newDiv);
     $('#locationsdiv').accordion("refresh");
+    $("#slidertext" + selections).css({"color": "#f6931f",  "font-weight": "bold"});
+	var sliderpointer = $("slider" + selections);
+jQuery.data(sliderpointer, "pointer", { id: selections});
+    $("#slider" + selections).slider({
+        value: 0,
+        min: 0,
+        max: 100,
+        step: 5,
+        slide: function(event, ui) {
+             $("#slidertext" + (jQuery.data(sliderpointer, "pointer").id)).text("Importance: " + ui.value);
+        }
+
+    });
             }
         } else {
            alert("Geocoder failed due to: " + status);
@@ -129,6 +150,7 @@ if (hasStarted) {
     });
 }
     placeMarker(e.latLng, map);
+
   });
   
    // Start Control Button clicked event
