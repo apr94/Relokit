@@ -23,7 +23,7 @@
 	
   }
   
-	#menu {
+	#description {
 		height: 100%;
 		width: 600px;
 		float: left;
@@ -213,14 +213,16 @@ overflow: auto;
 	z-index:10;
 }
 
-.click-menu {
+#menu {
 	height:100%;
-	/*width: 350px;
-	left:80%;*/
+	border: solid;
 	position: absolute;
 	z-index:999;
-	width: 40px;
+	width: 350px;
 	left:97.4%;
+	overflow: hidden;
+	padding :10px;
+	margin-right: 10px;
 	
 	
 	background: #eeeeee; /* Old browsers */
@@ -232,8 +234,21 @@ overflow: auto;
 	background: linear-gradient(to right, #eeeeee 0%,#eeeeee 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 */
 }
+
+#formdiv{
+overflow:hidden;
+}
+
+form{
+float: left;
+overflow: hidden;
+padding: left;
+}
 	
-	
+#locationsdiv{
+overflow: hidden;
+padding-right: 10px;
+}	
 
 	
 
