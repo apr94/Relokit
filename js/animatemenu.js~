@@ -31,8 +31,8 @@ expand_already = !expand_already;
 }
 
 else {
-
-$(".click-menu").animate({
+/*
+$("#menu").animate({
    width: '40px',
    left:"97.4%"
 }, { duration: 1500, queue: false });
@@ -55,7 +55,7 @@ $("#mask").animate({
    width: '100%',
 }, { duration: 1500, queue: true });
 
-
+*/
 expand_already = !expand_already;
 var canvas = document.getElementById("mask");
 canvas.setAttribute ("id", "Straight-mask");	

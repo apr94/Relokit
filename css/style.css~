@@ -222,7 +222,6 @@ overflow: auto;
 	left:97.4%;
 	overflow: hidden;
 	padding :10px;
-	margin-right: 10px;
 	
 	
 	background: #eeeeee; /* Old browsers */
@@ -240,10 +239,6 @@ overflow: auto;
 
 form{
 overflow: hidden;
-}
-	
-#locationsdiv{
-padding-right: 10px;
 }
 
 #buttondiv{
