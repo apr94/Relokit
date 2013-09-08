@@ -15,15 +15,17 @@ $("#mask").animate({
 $("#map-canvas").animate({
    width: '68%',
 }, { duration: 1500, queue: false });
-
-$("#fb").animate({
-   left: '58%',
-}, { duration: 1500, queue: false });
 $("#fb-container").animate({
-   left: '58%',
+   left: '65%',
 }, { duration: 1500, queue: false });
 $("#fb_religion").animate({
-   left: '48%',
+   left: '48.75%',
+}, { duration: 1500, queue: false });
+$("#fb_relationship").animate({
+   left: '32.5%',
+}, { duration: 1500, queue: false });
+$("#fb_likes").animate({
+   left: '28%',
 }, { duration: 1500, queue: false });
 
 expand_already = !expand_already;
@@ -41,16 +43,21 @@ $("#map-canvas").animate({
    width: '86.3%',
 }, { duration: 1500, queue: false });
 
-$("#fb").animate({
-   left: '78%',
-}, { duration: 1500, queue: false });
 $("#fb-container").animate({
-   left: '78%',
-}, { duration: 1500, queue: false });
-$("#fb_religion").animate({
-   left: '58%',
+   left: '82%',
 }, { duration: 1500, queue: false });
 
+$("#fb_religion").animate({
+   left: '66%',
+}, { duration: 1500, queue: false });
+
+$("#fb_relationship").animate({
+   left: '50%',
+}, { duration: 1500, queue: false });
+
+$("#fb_likes").animate({
+   left: '32%',
+}, { duration: 1500, queue: false });
 $("#mask").animate({
    width: '100%',
 }, { duration: 1500, queue: true });

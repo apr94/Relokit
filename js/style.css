@@ -267,7 +267,7 @@ overflow: auto;
 	z-index:999;
 	width: 350px;
 	left:97.4%;
-	overflow: auto;
+	overflow: hidden;
 	padding :10px;
 	
 	
@@ -289,7 +289,7 @@ overflow: hidden;
 }
 
 #buttondiv{
-padding: 15px;
+padding: 5px;
 text-align: center;
 overflow: auto;
 }	
