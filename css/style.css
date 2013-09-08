@@ -383,6 +383,15 @@ overflow: auto;
 	color:#5f78ab;
 }
 
+#toggle_houses {
+	position:absolute;
+	z-index: 9999;
+	top:88%;
+	left:46%;
+	width:200px;
+	height:30px;
+
+}
 
 	
 
