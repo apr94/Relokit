@@ -93,7 +93,7 @@ map: map
 function getAddresses(){
 
 	/** GEOCODING OF SCRAPED DATA */
-	d3.csv("data/sublets.csv", function(housedata) {
+	d3.csv("data/data.csv", function(housedata) {
 
 			// As of now, we will read in data from a file. We hope to do it from the server.
 			for (var i = 0; i < housedata.length; i++) {
@@ -102,25 +102,22 @@ function getAddresses(){
 			var myHouse = new Object();
 			myHouse.address = address;
 
-			geocoder.geocode( { 'address': address}, function(results, status) {
-
-				if (status == google.maps.GeocoderStatus.OK) {
-				var latitude = results[0].geometry.location.lat();
-				var longitude = results[0].geometry.location.lng();
+				var latitude = housedata[i].lat;
+				var longitude = housedata[i].lon;
 
 				myHouse.lat = latitude;
 				myHouse.lng = longitude;
-				myHouse.latlng = results[0].geometry.location;
 				myHouse.desiredLocations = [];
-				myHouse.edgeWidth = 0;
+				myHouse.edgeWeight = 0;
+				myHouse.rank = 0;
 				houseObjectsArray.push(myHouse);
 
 				var house_position = new google.maps.LatLng(latitude,longitude);
 				//displayHouseMarker(house_position, map);
 
 				houses_latlon.push(house_position);
-				}  
-				}); 
+			
+		
 			}
 	});
 }
@@ -129,12 +126,6 @@ function getAddresses(){
 
 
 getAddresses();
-
-function asyncmeasure(ew, tw)
-{
-	houseObjectsArray[index].edgeWeights = ew;
-	houseObjectsArray[index].timeWeights = tw;
-}
 
 
 function initialize() {
@@ -229,32 +220,39 @@ for(var j = 0; j < houseObjectsArray.length; j++){
 		latavg +=  houseObjectsArray[0].desiredLocations[j].lat;
 		lngavg +=  houseObjectsArray[0].desiredLocations[j].lng;
 	}
-	latAvg /= houseObjectsArray[0].desiredLocations.length;
+	latavg /= houseObjectsArray[0].desiredLocations.length;
 	lngavg /= houseObjectsArray[0].desiredLocations.length;
 
 	console.log(latavg + ", " + lngavg);
 
 	for(var j = 0; j < houseObjectsArray.length; j++){	
-		   
+		houseObjectsArray[j].edgeWeight = Math.sqrt(Math.pow((latavg - houseObjectsArray[j].lat),2) + Math.pow((lngavg - houseObjectsArray[j].lng),2)); 
+		console.log(houseObjectsArray[j].edgeWeight);  
+	}
+
+var swapped;
+    do {
+        swapped = false;
+        for (var i=0; i < houseObjectsArray.length-1; i++) {
+            if (houseObjectsArray[i].edgeWeight > houseObjectsArray[i+1].edgeWeight) {
+                var temp = houseObjectsArray[i];
+                houseObjectsArray[i] = houseObjectsArray[i+1];
+                houseObjectsArray[i+1] = temp;
+                swapped = true;
+            }
+        }
+    } while (swapped);
+  for (var i=0; i < houseObjectsArray.length; i++) {
+			var geocoder = new google.maps.Geocoder();
+			geocoder.geocode({'latLng': new google.maps.LatLng(houseObjectsArray[i].lat, houseObjectsArray[i].lng)}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+				if (results[1]) {
+				var newDiv = "<h3>" +results[1].formatted_address+ "</h3><div><p></p></div>";
+				$('#resultsdiv').append(newDiv);
+				$('#resultsdiv').accordion("refresh");}}});
 	}
 }
 
-
-function addResults(){
-
-	$.get("data/test.json", function(data) {
-
-$.each(data.items, function(key, val) {
-
-   	results++; 
-	var newDiv = "<h3>" +val.fname + "</h3><div id = result" + results +"><p></p></div>";
-				
-		$('#resultsdiv').append(newDiv);
-		$('#resultsdiv').accordion("refresh");
-	});
-	}, "json");
-
-}
 
 google.maps.event.addDomListener(window, 'load', initialize);
 

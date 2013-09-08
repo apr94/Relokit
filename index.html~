@@ -27,8 +27,9 @@
   <body>
 <div id="fb-root"></div>
 <div id="description">
+<h1>Results</h1>
 <div id="resultsdiv">
-<h1>Results</h1></div>
+></div>
 </div>
 
 
@@ -45,6 +46,7 @@
    
    <div class="console-element"><div class="fb_text"> <b>------- End of Console Recommendations ------ </b></div></div>
 </div><!-- END FACEBOOK -->
+<div id="toggle_houses"><button class="fb_button" onclick="toggleHouses()">Toggle Houses</button></div>
    <div id="arrow"></div>
    <div id="door-knob"></div>
    <div id="place-markers"  onclick="place_some_markers()"></div>
@@ -69,7 +71,7 @@
 </form>
     </div>
 <div id="locationsdiv"></div>
-<div id = "buttondiv" onclick = "calculate"><button>Go!</button></div>
+<div id = "buttondiv" onclick = "calculate()"><button>Go!</button></div>
 </div>
 </div>
 
