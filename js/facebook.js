@@ -117,6 +117,34 @@ var geocoder = new google.maps.Geocoder();
 			myLocation.lat = results[0].geometry.location.lat();
 			myLocation.lng = results[0].geometry.location.lng();
 			myLocation.latlng =  new google.maps.LatLng(latitude,longitude);
+				if (results[1]) {
+				selections++; 
+
+				var newDiv = "<h3>" +results[1].formatted_address + "</h3><div id = result" + selections +"><p><label id = slidertext"+selections+">Importance:</label></p><div id = slider"+selections+"></div></div>";
+				myLocation.address = results[1].formatted_address;
+				myLocation.importance = 0;
+				myLocationsArray.push(myLocation);
+
+
+
+				$('#locationsdiv').append(newDiv);
+				$('#locationsdiv').accordion("refresh");
+				$("#slidertext" + selections).css({"color": "#f6931f",  "font-weight": "bold"});
+				var sliderpointer = $("slider" + selections);
+				jQuery.data(sliderpointer, "pointer", { id: selections});
+				$("#slider" + selections).slider({
+value: 0,
+min: 0,
+max: 100,
+step: 5,
+slide: function(event, ui) {
+$("#slidertext" + (jQuery.data(sliderpointer, "pointer").id)).text("Importance: " + ui.value);
+sliderValues[jQuery.data(sliderpointer, "pointer").id] = ui.value;
+}
+
+});
+
+}
 
  		 } 
  		 var marker = new google.maps.Marker({
