@@ -27,6 +27,9 @@ $("#fb_relationship").animate({
 $("#fb_likes").animate({
    left: '28%',
 }, { duration: 1500, queue: false });
+$("#expander").animate({
+   left: '75.85%',
+}, { duration: 1500, queue: false });
 
 expand_already = !expand_already;
 
@@ -62,13 +65,14 @@ $("#mask").animate({
    width: '100%',
 }, { duration: 1500, queue: true });
 
+$("#expander").animate({
+   left: '97.45%',
+}, { duration: 1500, queue: false });
 
 expand_already = !expand_already;
 var canvas = document.getElementById("mask");
 canvas.setAttribute ("id", "Straight-mask");	
 
 }
-
-
 
 }

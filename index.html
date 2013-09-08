@@ -33,6 +33,7 @@
 <div id="mapcontainer">
    <div id="map-canvas"></div>
    <div id="Straight-mask"></div>
+   
   <div id="fb-container"><div class="fb_header"><b>< Facebook Console<br/></div><div id="fb" class="fb_text"><fb:login-button autologoutlink="true"></fb:login-button></div></b></div>
    <div id="fb_religion"><div class="fb_header"><b>Place Recommendations</b></div><div class="fb_text"> Your religion is <religion_text></religion_text>.<br/> Would you like to generate places?  <br/><button class="fb_button" onclick="showMarkers('religion')">Generate</button>  <button class="fb_button" onclick="removeMarkers()">Clear</button></div></div>
    <div id="fb_relationship"><div class="fb_header"><b>Place Recommendations</b></div><div class="fb_text"> You are: <relationship_text></relationship_text>.<br/>Would you like to generate places? <br/><button class="fb_button" onclick="showMarkers('relationship')">Generate</button>  <button class="fb_button" onclick="removeMarkers()">Clear</button></div></div>
@@ -40,7 +41,13 @@
    <div id="arrow"></div>
    <div id="door-knob"></div>
    <div id="place-markers"  onclick="place_some_markers()"></div>
-   <div id="menu" onclick="expand()"><div id="formdiv">
+   <button id="expander" onclick="expand()"><</button>
+   
+   <div id="menu" >
+	   
+	   
+	   
+	   <div id="formdiv">
 <form style="width: 280px">
 <p>
 <label for="amount">Rent range per month:</label>

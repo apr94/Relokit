@@ -294,5 +294,16 @@ text-align: center;
 overflow: auto;
 }	
 
+#expander{
+	width:				175px;
+	height:				75px;
+	position:			absolute;
+	left:				15%;
+	top:				0;
+	background: url('Start-placing.gif') no-repeat;
+	background-size: 100% 100%;
+	z-index:			999;
+
+}
 	
 
