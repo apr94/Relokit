@@ -1,5 +1,7 @@
  var markersArray = [];
  var string_address;
+ var religion_keyword;
+ var relationship_keyword;
  
  
   window.fbAsyncInit = function() {
@@ -21,7 +23,13 @@
       // The response object is returned with a status field that lets the app know the current
       // login status of the person. In this case, we're handling the situation where they 
       // have logged in to the app.
-      religionAPI();
+      FBAPI_profile(function(resp) {
+       $("religion_text").text(resp.religion); 
+       $("relationship_text").text(resp.relationship_status); 
+      });
+      FBAPI_likes(function(resp) {
+      });
+      
     } else if (response.status === 'not_authorized') {
       // In this case, the person is logged into Facebook, but not into the app, so we call
       // FB.login() to prompt them to do so. 
@@ -51,17 +59,44 @@
    ref.parentNode.insertBefore(js, ref);
   }(document));
 
-  // Here we run a very simple test of the Graph API after login is successful. 
-  // This testAPI() function is only called in those cases. 
-  function religionAPI() {
+  // Called after login is successful
+  /** Mines user's religion and relationship status */ 
+  function FBAPI_profile(callback) {
     FB.api('/me', function(response) {
-      if (response.religion == "Christian" || response.religion == "Christianity") {
-      	console.log("Hello!");
+    // Religion
+      if (response.religion == "Christian" || response.religion == "Christianity"
+      || response.religion == "Catholic" || response.religion == "Catholicism") {
         document.getElementById("fb_religion").style.visibility = "visible";
+        religion_keyword = 'church';
       }
+      else if (response.religion == "Muslim" || response.religion == "Islam") {
+        document.getElementById("fb_religion").style.visibility = "visible";
+        religion_keyword = 'mosque';
+      }
+    // Relationship status
+      if (response.relationship_status == "In a relationship" || response.relationship_status == "Engaged"
+      || response.relationship_status == "Married" || response.relationship_status == "In an open relationship") {
+        document.getElementById("fb_relationship").style.visibility = "visible";
+        relationship_keyword = 'romance';
+      }
+      else if (response.relationship_status == "Single" || response.relationship_status == "Widowed"
+      || response.relationship_status == "Divorced") {
+      	document.getElementById("fb_relationship").style.visibility = "visible";
+        relationship_keyword = 'dating';
+      }
+      callback(response);
     });
   }
   
+  // Called after login is successful
+  /** Mines and analyzes user's likes */ 
+  function FBAPI_likes(callback) {
+    FB.api('/me?fields=likes', function(response) {
+      callback(response);
+    });
+  }
+  
+
   // METHODS BY LEONARD TO MINE DATA
   /** Add marker from FB */
 function addMarker() {
@@ -72,7 +107,6 @@ var geocoder = new google.maps.Geocoder();
   		if (status == google.maps.GeocoderStatus.OK) {
    		  var latitude = results[0].geometry.location.lat();
   		  var longitude = results[0].geometry.location.lng();
-  		  console.log("hi" + latitude);
   		  var position = new google.maps.LatLng(latitude,longitude);
  		 } 
  		 var marker = new google.maps.Marker({
@@ -100,15 +134,22 @@ else { document.getElementById(id).style.visibility = "visible"; }
 
   /** RELIGION */
  
-function showMarkers_religion() {
- 
+function showMarkers(keyword) {
+removeMarkers();
+var actual_keyword;
+ 	if (keyword == 'religion') {
+ 		actual_keyword = religion_keyword;
+ 	}
+ 	if (keyword == 'relationship') {
+ 		actual_keyword = relationship_keyword;
+ 	}
   infoWindow = new google.maps.InfoWindow();
   service = new google.maps.places.PlacesService(map);
 // Facebook Services
 var request = {
         location: new google.maps.LatLng(39.9539, -75.1930),
         bounds: map.getBounds(),
-        keyword: 'church'
+        keyword: actual_keyword
     };
     service.radarSearch(request, callback);
 }
@@ -139,7 +180,11 @@ markersArray.push(marker);
       }
       console.log(result);
       string_address = "" + result.vicinity;
-     infoWindow.setContent('<button onclick="addMarker()">Place Marker</button><br/>' + result.name + '<br/>' + '<a href="' + result.website + '">Website</a>' + '<br/><img src="' + result.icon + '">');
+      var phone = "None";
+      if (result.formatted_phone_number != undefined) {
+      	phone = result.formatted_phone_number;
+      }
+     infoWindow.setContent('<button class="fb_button" onclick="addMarker()">Place Marker</button><br/><b>' + result.name + '</b><br/>' + '<a href="' + result.website + '">Website</a>' + '<br/>Phone: ' + phone);
       infoWindow.open(map, marker);
     });
   });
