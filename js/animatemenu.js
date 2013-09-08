@@ -26,7 +26,7 @@ $("#fb_religion").animate({
    left: '48%',
 }, { duration: 1500, queue: false });
 
-expand_already = expand_already;
+expand_already = !expand_already;
 
 }
 
