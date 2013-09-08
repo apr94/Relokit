@@ -15,8 +15,8 @@ $("#mask").animate({
 $("#map-canvas").animate({
    width: '68%',
 }, { duration: 1500, queue: false });
-$("#fb-container").animate({
-   left: '65%',
+$("#facebook").animate({
+   left: '33%',
 }, { duration: 1500, queue: false });
 $("#fb_religion").animate({
    left: '48.75%',
@@ -46,8 +46,8 @@ $("#map-canvas").animate({
    width: '86.3%',
 }, { duration: 1500, queue: false });
 
-$("#fb-container").animate({
-   left: '82%',
+$("#facebook").animate({
+   left: '50%',
 }, { duration: 1500, queue: false });
 
 $("#fb_religion").animate({
