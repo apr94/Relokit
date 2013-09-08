@@ -1,4 +1,3 @@
-{
 "sublets" : [
 { "address":" 4033 Walnut Street","name":"  4033 Walnut Single","price":"550","gender":" Either","features":" Kitchen, Furnished, Laundry, Alarm System","listed":" Either","expires":" 86 days, 21 hours" },
 { "address":" 4001 Baltimore Ave.","name":"  Fully-furnished, close to campus, next to trolley","price":"490","gender":" Male-only","features":" A/C, Furnished, Parking","listed":" Male-only","expires":" 79 days, 22 hours" },
@@ -80,4 +79,4 @@
 { "address":" 405 S. 40th St.","name":"  Bedroom Sublet. Corner of Pine and 40th","price":"540","gender":" Either","features":" Furnished, Laundry, Party Space, Kitchen","listed":" Either","expires":" 1 day, 2 hours" },
 { "address":" 4102 Spruce Street","name":"  1 Furnished Bedroom in Large House","price":"657","gender":" Either","features":" Kitchen, Parking, Laundry, A/C, Furnished","listed":" Either","expires":" 21 hours, 1 min" }
 ]
-}
+

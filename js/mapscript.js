@@ -3,6 +3,7 @@ var hasStarted = false; // if hasStarted is true, user can now input amenities c
 var choices_latlon = []; // User's input of amenities location in lat and lon
 var houses_latlon = []; // Houses' lat and lon that are scraped
 var selections = 0;
+var results = 0;
 var imp = 0;
 var houseObjectsArray = new Array();
 var myLocationsArray = new Array();
@@ -111,8 +112,7 @@ function getAddresses(){
 				myHouse.lng = longitude;
 				myHouse.latlng = results[0].geometry.location;
 				myHouse.desiredLocations = [];
-				myHouse.edgeWeights = [];
-				myHouse.timeWeights = [];
+				myHouse.edgeWidth = 0;
 				houseObjectsArray.push(myHouse);
 
 				var house_position = new google.maps.LatLng(latitude,longitude);
@@ -132,8 +132,8 @@ getAddresses();
 
 function asyncmeasure(ew, tw)
 {
-houseObjectsArray[index].edgeWeights = ew;
-houseObjectsArray[index].timeWeights = tw;
+	houseObjectsArray[index].edgeWeights = ew;
+	houseObjectsArray[index].timeWeights = tw;
 }
 
 
@@ -220,42 +220,39 @@ function calculate()
 		newLocation.importance = sliderValues[j+1];
 		newLocationsArray.push(newLocation);
 	}
+for(var j = 0; j < houseObjectsArray.length; j++){	
+			houseObjectsArray[j].desiredLocations = newLocationsArray;   
+		}
+	var latavg = 0;
+	var lngavg = 0;
+	for(var j = 0; j < houseObjectsArray[0].desiredLocations.length; j++){	
+		latavg +=  houseObjectsArray[0].desiredLocations[j].lat;
+		lngavg +=  houseObjectsArray[0].desiredLocations[j].lng;
+	}
+	latAvg /= houseObjectsArray[0].desiredLocations.length;
+	lngavg /= houseObjectsArray[0].desiredLocations.length;
+
+	console.log(latavg + ", " + lngavg);
 
 	for(var j = 0; j < houseObjectsArray.length; j++){	
-		houseObjectsArray[j].desiredLocations = newLocationsArray;   
+		   
 	}
-
-	for(var j = 0; j < houseObjectsArray.length; j++){
-		for(var i = 0; i < houseObjectsArray[j].desiredLocations.length; i++){
-			var ew = new Array();
-			var tw = new Array();
-			directionsService = new google.maps.DirectionsService();
-			directionsDisplay = new google.maps.DirectionsRenderer(
-					{
-suppressMarkers: true,
-suppressInfoWindows: true
-});
-directionsDisplay.setMap(map);
-var request = {
-origin:houseObjectsArray[j].latlng,
-       destination:houseObjectsArray[j].desiredLocations[i].latlng,
-       travelMode: google.maps.DirectionsTravelMode.DRIVING
-};
-directionsService.route(request, function(response, status)
-		{
-		if (status == google.maps.DirectionsStatus.OK)
-		{
-		var regex = /[+-]?\d+\.\d+/g;
-		ew.push(+response.routes[0].legs[0].distance.text.match(regex));
-		tw.push(+response.routes[0].legs[0].duration.text.match(/\d/g).join(""));
-		console.log(ew.toSource());
-		console.log(tw.toSource());
-		}});
-}
-
 }
 
 
+function addResults(){
+
+	$.get("data/test.json", function(data) {
+
+$.each(data.items, function(key, val) {
+
+   	results++; 
+	var newDiv = "<h3>" +val.fname + "</h3><div id = result" + results +"><p></p></div>";
+				
+		$('#resultsdiv').append(newDiv);
+		$('#resultsdiv').accordion("refresh");
+	});
+	}, "json");
 
 }
 
