@@ -333,7 +333,7 @@ overflow: auto;
 	
 	/* orig state */
 	width:175px;
-	left:80%;
+	/*left:80%;*/
 	overflow:hidden;
 }
 .console-element{
