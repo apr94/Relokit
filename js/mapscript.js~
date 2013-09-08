@@ -7,215 +7,262 @@ var imp = 0;
 var houseObjectsArray = new Array();
 var myLocationsArray = new Array();
 var sliderValues = Array();
+var index = 0;
 
 /** START CONTROL BUTTON */
 function StartControl(controlDiv, map) {
 
-  controlDiv.style.padding = '3px';
-  controlDiv.style.backgroundColor = 'white';
+	controlDiv.style.padding = '3px';
+	controlDiv.style.backgroundColor = 'white';
 
-  // Set CSS for the Start button border
-  var controlUI = document.createElement('div');
-  controlUI.setAttribute ("id", "start-button");
-  
-  /* unnecessary now, all in css
-  controlUI.style.backgroundColor = 'white';
-  controlUI.style.borderStyle = 'dotted';
-  controlUI.style.borderWidth = '2px';
-  controlUI.style.opacity = '0.7';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.textAlign = 'center';
-  */
-  
-  controlUI.title = 'Click to start adding points';
-  controlDiv.appendChild(controlUI);
+	// Set CSS for the Start button border
+	var controlUI = document.createElement('div');
+	controlUI.setAttribute ("id", "start-button");
 
-  // Set CSS for the Start button text
-  var controlText = document.createElement('div');
-  controlText.setAttribute ("id", "start-button-smaller");
-  
-  /* unnecessary now, all in css
-  controlText.style.fontFamily = 'Arial,sans-serif';
-  controlText.style.fontSize = '14px';
-  controlText.style.paddingLeft = '4px';
-  controlText.style.paddingRight = '4px';
-  */
-  
-  controlText.innerHTML = '<b>Start</b>';
-  controlUI.appendChild(controlText);
+	/* unnecessary now, all in css
+	   controlUI.style.backgroundColor = 'white';
+	   controlUI.style.borderStyle = 'dotted';
+	   controlUI.style.borderWidth = '2px';
+	   controlUI.style.opacity = '0.7';
+	   controlUI.style.cursor = 'pointer';
+	   controlUI.style.textAlign = 'center';
+	 */
 
-  // Setup the click event listeners
-  google.maps.event.addDomListener(controlUI, 'click', function() {
-  if (!hasStarted) {
-    controlText.innerHTML = '<b>End</b>';
-    }
-	else {
-		controlText.innerHTML = '<b>Start</b>';
-		// After clicking end the panel of suggested locations will slide out from the side
-	}
-	hasStarted = !hasStarted;
-  });
-  
-  google.maps.event.addDomListener(controlUI, 'mouseover', function() {
-  	controlUI.style.opacity = '1.0';
-  });
-  
-    google.maps.event.addDomListener(controlUI, 'mouseout', function() {
-  	controlUI.style.opacity = '0.7';
-  });
-  }
+	controlUI.title = 'Click to start adding points';
+	controlDiv.appendChild(controlUI);
+
+	// Set CSS for the Start button text
+	var controlText = document.createElement('div');
+	controlText.setAttribute ("id", "start-button-smaller");
+
+	/* unnecessary now, all in css
+	   controlText.style.fontFamily = 'Arial,sans-serif';
+	   controlText.style.fontSize = '14px';
+	   controlText.style.paddingLeft = '4px';
+	   controlText.style.paddingRight = '4px';
+	 */
+
+	controlText.innerHTML = '<b>Start</b>';
+	controlUI.appendChild(controlText);
+
+	// Setup the click event listeners
+	google.maps.event.addDomListener(controlUI, 'click', function() {
+			if (!hasStarted) {
+			controlText.innerHTML = '<b>End</b>';
+			}
+			else {
+			controlText.innerHTML = '<b>Start</b>';
+			// After clicking end the panel of suggested locations will slide out from the side
+			}
+			hasStarted = !hasStarted;
+			});
+
+	google.maps.event.addDomListener(controlUI, 'mouseover', function() {
+			controlUI.style.opacity = '1.0';
+			});
+
+	google.maps.event.addDomListener(controlUI, 'mouseout', function() {
+			controlUI.style.opacity = '0.7';
+			});
+}
 
 /** PLACE MARKER MODE */
 function placeMarker(position, map) {
-if (hasStarted) {
-  var marker = new google.maps.Marker({
-    position: position,
-    map: map,
-    draggable: false,
-    animation: google.maps.Animation.DROP
-  });
-  map.panTo(position);
-	choices_latlon.push(position);
-  }
+	if (hasStarted) {
+		var marker = new google.maps.Marker({
+position: position,
+map: map,
+draggable: false,
+animation: google.maps.Animation.DROP
+});
+map.panTo(position);
+choices_latlon.push(position);
+}
 }
 
 /** DISPLAY HOUSE MARKER */
 function displayHouseMarker(position, map) {
 	var marker = new google.maps.Marker({
-    position: position,
-    map: map
-  });
+position: position,
+map: map
+});
 }
 
 
 function getAddresses(){
 
-/** GEOCODING OF SCRAPED DATA */
-d3.csv("data/sublets.csv", function(housedata) {
+	/** GEOCODING OF SCRAPED DATA */
+	d3.csv("data/sublets.csv", function(housedata) {
 
-// As of now, we will read in data from a file. We hope to do it from the server.
-for (var i = 0; i < housedata.length; i++) {
-	var geocoder = new google.maps.Geocoder();
-	var address = housedata[i].address + ", Pennsylvania";
-	var myHouse = new Object();
-	myHouse.address = address;
+			// As of now, we will read in data from a file. We hope to do it from the server.
+			for (var i = 0; i < housedata.length; i++) {
+			var geocoder = new google.maps.Geocoder();
+			var address = housedata[i].address + ", Pennsylvania";
+			var myHouse = new Object();
+			myHouse.address = address;
 
-	geocoder.geocode( { 'address': address}, function(results, status) {
-		 
-  		if (status == google.maps.GeocoderStatus.OK) {
-   		 var latitude = results[0].geometry.location.lat();
-  		  var longitude = results[0].geometry.location.lng();
-		 
-		  myHouse.lat = latitude;
-		  myHouse.lng = longitude;
-		  myHouse.desiredLocations = [];
-		  houseObjectsArray.push(myHouse);
-		
-  		  var house_position = new google.maps.LatLng(latitude,longitude);
- 		  	displayHouseMarker(house_position, map);
+			geocoder.geocode( { 'address': address}, function(results, status) {
 
- 		  	houses_latlon.push(house_position);
- 		 }  
-	}); 
-	}
-});
+				if (status == google.maps.GeocoderStatus.OK) {
+				var latitude = results[0].geometry.location.lat();
+				var longitude = results[0].geometry.location.lng();
+
+				myHouse.lat = latitude;
+				myHouse.lng = longitude;
+				myHouse.latlng = results[0].geometry.location;
+				myHouse.desiredLocations = [];
+				myHouse.edgeWeights = [];
+				myHouse.timeWeights = [];
+				houseObjectsArray.push(myHouse);
+
+				var house_position = new google.maps.LatLng(latitude,longitude);
+				//displayHouseMarker(house_position, map);
+
+				houses_latlon.push(house_position);
+				}  
+				}); 
+			}
+	});
 }
+
+
+
 
 getAddresses();
 
-
+function asyncmeasure(ew, tw)
+{
+houseObjectsArray[index].edgeWeights = ew;
+houseObjectsArray[index].timeWeights = tw;
+}
 
 
 function initialize() {
-  var mapOptions = {
-    zoom: 16,
-    center: new google.maps.LatLng(39.9539, -75.1930),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
+	var mapOptions = {
+zoom: 16,
+      center: new google.maps.LatLng(39.9539, -75.1930),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	map = new google.maps.Map(document.getElementById('map-canvas'),
+			mapOptions);
 
 	// Place Marker event
-  google.maps.event.addListener(map, 'click', function(e) {
-if (hasStarted) {
-	var myLocation = new Object();
-	myLocation.lat = e.latLng.lat();
-	myLocation.lng = e.latLng.lng();
+	google.maps.event.addListener(map, 'click', function(e) {
+			if (hasStarted) {
+			var myLocation = new Object();
+			myLocation.lat = e.latLng.lat();
+			myLocation.lng = e.latLng.lng();
+			myLocation.latlng = e.latLng;
 
-	var geocoder = new google.maps.Geocoder();
-	geocoder.geocode({'latLng': e.latLng}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          if (results[1]) {
-	selections++; 
+			var geocoder = new google.maps.Geocoder();
+			geocoder.geocode({'latLng': e.latLng}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+				if (results[1]) {
+				selections++; 
 
-    var newDiv = "<h3>" +results[1].formatted_address + "</h3><div id = result" + selections +"><p><label id = slidertext"+selections+">Importance:</label></p><div id = slider"+selections+"></div></div>";
-	myLocation.address = results[1].formatted_address;
-	myLocation.importance = 0;
-	myLocationsArray.push(myLocation);
-	
+				var newDiv = "<h3>" +results[1].formatted_address + "</h3><div id = result" + selections +"><p><label id = slidertext"+selections+">Importance:</label></p><div id = slider"+selections+"></div></div>";
+				myLocation.address = results[1].formatted_address;
+				myLocation.importance = 0;
+				myLocationsArray.push(myLocation);
 
 
-    $('#locationsdiv').append(newDiv);
-    $('#locationsdiv').accordion("refresh");
-    $("#slidertext" + selections).css({"color": "#f6931f",  "font-weight": "bold"});
-	var sliderpointer = $("slider" + selections);
-jQuery.data(sliderpointer, "pointer", { id: selections});
-    $("#slider" + selections).slider({
-        value: 0,
-        min: 0,
-        max: 100,
-        step: 5,
-        slide: function(event, ui) {
-             $("#slidertext" + (jQuery.data(sliderpointer, "pointer").id)).text("Importance: " + ui.value);
-	     sliderValues[jQuery.data(sliderpointer, "pointer").id] = ui.value;
-        }
 
-    });
-
-            }
-
-        } else {
-           alert("Geocoder failed due to: " + status);
-       }
-    });
+				$('#locationsdiv').append(newDiv);
+				$('#locationsdiv').accordion("refresh");
+				$("#slidertext" + selections).css({"color": "#f6931f",  "font-weight": "bold"});
+				var sliderpointer = $("slider" + selections);
+				jQuery.data(sliderpointer, "pointer", { id: selections});
+				$("#slider" + selections).slider({
+value: 0,
+min: 0,
+max: 100,
+step: 5,
+slide: function(event, ui) {
+$("#slidertext" + (jQuery.data(sliderpointer, "pointer").id)).text("Importance: " + ui.value);
+sliderValues[jQuery.data(sliderpointer, "pointer").id] = ui.value;
 }
-    placeMarker(e.latLng, map);
 
-  });
-  
-   // Start Control Button clicked event
-  var StartControlDiv = document.createElement('div');
-  StartControlDiv.setAttribute ("id", "start-button-bigger");
-  var startControl = new StartControl(StartControlDiv, map);
-  StartControlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(StartControlDiv);
-  
+});
 
 }
 
+} else {
+	alert("Geocoder failed due to: " + status);
+}
+});
+}
+placeMarker(e.latLng, map);
+
+});
+
+// Start Control Button clicked event
+var StartControlDiv = document.createElement('div');
+StartControlDiv.setAttribute ("id", "start-button-bigger");
+var startControl = new StartControl(StartControlDiv, map);
+StartControlDiv.index = 1;
+map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(StartControlDiv);
 
 
-function calculate()
+}
+
+
+
+function calculate(callback)
 {
-var newLocationsArray = new Array();
-   for(var j = 0; j < myLocationsArray.length; j++){
+	var newLocationsArray = new Array();
+	for(var j = 0; j < myLocationsArray.length; j++){
 
-	var newLocation = new Object();
-	newLocation.lat = myLocationsArray[j].lat;
-	newLocation.lng = myLocationsArray[j].lng;
-	newLocation.address = myLocationsArray[j].address;
-	newLocation.importance = sliderValues[j+1];
-	newLocationsArray.push(newLocation);
+		var newLocation = new Object();
+		newLocation.lat = myLocationsArray[j].lat;
+		newLocation.lng = myLocationsArray[j].lng;
+		newLocation.latlng = myLocationsArray[j].latlng;
+		newLocation.address = myLocationsArray[j].address;
+		newLocation.importance = sliderValues[j+1];
+		newLocationsArray.push(newLocation);
+	}
 
+	for(var j = 0; j < houseObjectsArray.length; j++){	
+		houseObjectsArray[j].desiredLocations = newLocationsArray;   
+	}
 
-  
-      }
-
-    for(var j = 0; j < houseObjectArray.length; j++){	
-   	houseObjectsArray[j].desiredLocations = newLocationsArray;   
+	for(var j = 0; j < houseObjectsArray.length; j++){
+		for(var i = 0; i < houseObjectsArray[j].desiredLocations.length; i++){
+			var ew = new Array();
+			var tw = new Array();
+			directionsService = new google.maps.DirectionsService();
+			directionsDisplay = new google.maps.DirectionsRenderer(
+					{
+suppressMarkers: true,
+suppressInfoWindows: true
+});
+directionsDisplay.setMap(map);
+var request = {
+origin:houseObjectsArray[j].latlng,
+       destination:houseObjectsArray[j].desiredLocations[i].latlng,
+       travelMode: google.maps.DirectionsTravelMode.DRIVING
+};
+directionsService.route(request, function(response, status)
+		{
+		if (status == google.maps.DirectionsStatus.OK)
+		{
+		var regex = /[+-]?\d+\.\d+/g;
+		ew.push(+response.routes[0].legs[0].distance.text.match(regex));
+		tw.push(+response.routes[0].legs[0].duration.text.match(/\d/g).join(""));
+		asyncmeasure(ew, tw);
+		}});
 }
 
-console.log(houseObjectsArray.toSource());
+}
+
+callback.call();
+
+}
+
+function callback_wrapper()
+{
+calculate( function() {
+	console.log(this);
+});
 }
 
 
