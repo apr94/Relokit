@@ -55,7 +55,7 @@
 </form>
     </div>
 <div id="locationsdiv"></div>
-<div id = "buttondiv" onclick = "calculate(print())"><button>Go!</button></div>
+<div id = "buttondiv"><button>Go!</button></div>
 </div>
 </div>
 
