@@ -2,6 +2,10 @@ $(function() {
 $( "#locationsdiv" ).accordion();
 });
 
+ $(function() {
+$( "#resultsdiv" ).accordion();
+});
+
 $(function() {
 $( "#slider-range" ).slider({
 range: true,

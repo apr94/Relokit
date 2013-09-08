@@ -10,7 +10,6 @@ max: 1400,
 values: [ 75, 300 ],
 slide: function( event, ui ) {
 $( "#amountPrice" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-console.log(ui.values[1] - ui.values[0]);
 }
 });
 $( "#amountPrice" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
