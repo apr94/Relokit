@@ -7,7 +7,7 @@ function expand()
 	canvas.setAttribute ("id", "mask");
 $("#menu").animate({
    width: '350px',
-   left:"77%"
+   left:"76%"
 }, { duration: 1500, queue: false });
 $("#mask").animate({
    width: '80%',
@@ -26,12 +26,12 @@ $("#fb_religion").animate({
    left: '48%',
 }, { duration: 1500, queue: false });
 
-expand_already = !expand_already;
+expand_already = expand_already;
 
 }
 
 else {
-/*
+
 $("#menu").animate({
    width: '40px',
    left:"97.4%"
@@ -55,7 +55,7 @@ $("#mask").animate({
    width: '100%',
 }, { duration: 1500, queue: true });
 
-*/
+
 expand_already = !expand_already;
 var canvas = document.getElementById("mask");
 canvas.setAttribute ("id", "Straight-mask");	

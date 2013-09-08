@@ -3,6 +3,7 @@ var hasStarted = false; // if hasStarted is true, user can now input amenities c
 var choices_latlon = []; // User's input of amenities location in lat and lon
 var houses_latlon = []; // Houses' lat and lon that are scraped
 var selections = 0;
+var imp = 0;
 var houseObjectsArray = new Array();
 
 /** START CONTROL BUTTON */
@@ -104,10 +105,10 @@ for (var i = 0; i < housedata.length; i++) {
   		  var longitude = results[0].geometry.location.lng();
 		 
 		  myHouse.lat = latitude;
-		  myHouse.lon = longitude;
+		  myHouse.lng = longitude;
 		  var desiredLocations = new Array();
 		  myHouse.desiredLocations = desiredLocations;
-		  //houseObjectsArray.push(myHouse);
+		  houseObjectsArray.push(myHouse);
 		
   		  var house_position = new google.maps.LatLng(latitude,longitude);
  		  	displayHouseMarker(house_position, map);
@@ -120,6 +121,13 @@ for (var i = 0; i < housedata.length; i++) {
 }
 
 getAddresses();
+
+function AddLocation(location){
+ for (var i=0;i<houseObjectsArray.length;i++)
+    {
+	houseObjectsArray[i].desiredLocations.push(location);
+    }
+}
 
 
 function initialize() {
@@ -134,6 +142,10 @@ function initialize() {
 	// Place Marker event
   google.maps.event.addListener(map, 'click', function(e) {
 if (hasStarted) {
+	var myLocation = new Object();
+	myLocation.lat = e.latLng.lat();
+	myLocation.lng = e.latLng.lng();
+
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode({'latLng': e.latLng}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
@@ -141,6 +153,8 @@ if (hasStarted) {
 	selections++; 
 
     var newDiv = "<h3>" +results[1].formatted_address + "</h3><div id = result" + selections +"><p><label id = slidertext"+selections+">Importance:</label></p><div id = slider"+selections+"></div></div>";
+	myLocation.address = results[1].formatted_address;
+	
 
 
     $('#locationsdiv').append(newDiv);
@@ -155,9 +169,12 @@ jQuery.data(sliderpointer, "pointer", { id: selections});
         step: 5,
         slide: function(event, ui) {
              $("#slidertext" + (jQuery.data(sliderpointer, "pointer").id)).text("Importance: " + ui.value);
+	     myLocation.importance = ui.value;
+	     console.log(myLocation.importance);
         }
 
     });
+
             }
 
         } else {
@@ -179,8 +196,10 @@ jQuery.data(sliderpointer, "pointer", { id: selections});
 
 }
 
-function calculate(house, location){
-getAddresses();
+
+
+function calculate(){
+    console.log(houseObjectsArray.toSource());
 }
 
 

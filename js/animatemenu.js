@@ -7,7 +7,7 @@ function expand()
 	canvas.setAttribute ("id", "mask");
 $("#menu").animate({
    width: '350px',
-   left:"77%"
+   left:"75.5%"
 }, { duration: 1500, queue: false });
 $("#mask").animate({
    width: '80%',
