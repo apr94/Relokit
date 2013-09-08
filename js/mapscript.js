@@ -5,6 +5,8 @@ var houses_latlon = []; // Houses' lat and lon that are scraped
 var selections = 0;
 var imp = 0;
 var houseObjectsArray = new Array();
+var myLocationsArray = new Array();
+var sliderValues = Array();
 
 /** START CONTROL BUTTON */
 function StartControl(controlDiv, map) {
@@ -106,8 +108,7 @@ for (var i = 0; i < housedata.length; i++) {
 		 
 		  myHouse.lat = latitude;
 		  myHouse.lng = longitude;
-		  var desiredLocations = new Array();
-		  myHouse.desiredLocations = desiredLocations;
+		  myHouse.desiredLocations = [];
 		  houseObjectsArray.push(myHouse);
 		
   		  var house_position = new google.maps.LatLng(latitude,longitude);
@@ -122,12 +123,7 @@ for (var i = 0; i < housedata.length; i++) {
 
 getAddresses();
 
-function AddLocation(location){
- for (var i=0;i<houseObjectsArray.length;i++)
-    {
-	houseObjectsArray[i].desiredLocations.push(location);
-    }
-}
+
 
 
 function initialize() {
@@ -154,6 +150,8 @@ if (hasStarted) {
 
     var newDiv = "<h3>" +results[1].formatted_address + "</h3><div id = result" + selections +"><p><label id = slidertext"+selections+">Importance:</label></p><div id = slider"+selections+"></div></div>";
 	myLocation.address = results[1].formatted_address;
+	myLocation.importance = 0;
+	myLocationsArray.push(myLocation);
 	
 
 
@@ -169,8 +167,7 @@ jQuery.data(sliderpointer, "pointer", { id: selections});
         step: 5,
         slide: function(event, ui) {
              $("#slidertext" + (jQuery.data(sliderpointer, "pointer").id)).text("Importance: " + ui.value);
-	     myLocation.importance = ui.value;
-	     console.log(myLocation.importance);
+	     sliderValues[jQuery.data(sliderpointer, "pointer").id] = ui.value;
         }
 
     });
@@ -198,8 +195,27 @@ jQuery.data(sliderpointer, "pointer", { id: selections});
 
 
 
-function calculate(){
-    console.log(houseObjectsArray.toSource());
+function calculate()
+{
+var newLocationsArray = new Array();
+   for(var j = 0; j < myLocationsArray.length; j++){
+
+	var newLocation = new Object();
+	newLocation.lat = myLocationsArray[j].lat;
+	newLocation.lng = myLocationsArray[j].lng;
+	newLocation.address = myLocationsArray[j].address;
+	newLocation.importance = sliderValues[j+1];
+	newLocationsArray.push(newLocation);
+
+
+  
+      }
+
+    for(var j = 0; j < houseObjectsArray.length; j++){	
+   	houseObjectsArray[j].desiredLocations = newLocationsArray;   
+}
+
+console.log(houseObjectsArray.toSource());
 }
 
 
