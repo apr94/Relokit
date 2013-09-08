@@ -2,6 +2,8 @@
  var string_address;
  var religion_keyword;
  var relationship_keyword;
+ var hasreligion = false;
+ var hasrelationship = false;
  
  
   window.fbAsyncInit = function() {
@@ -29,7 +31,8 @@
       });
       FBAPI_likes(function(resp) {
       });
-      
+	  transition_console();
+	  
     } else if (response.status === 'not_authorized') {
       // In this case, the person is logged into Facebook, but not into the app, so we call
       // FB.login() to prompt them to do so. 
@@ -68,23 +71,28 @@
       || response.religion == "Catholic" || response.religion == "Catholicism") {
         document.getElementById("fb_religion").style.visibility = "visible";
         religion_keyword = 'church';
+		hasreligion = true;
       }
       else if (response.religion == "Muslim" || response.religion == "Islam") {
         document.getElementById("fb_religion").style.visibility = "visible";
         religion_keyword = 'mosque';
+		hasreligion = true;
       }
     // Relationship status
       if (response.relationship_status == "In a relationship" || response.relationship_status == "Engaged"
       || response.relationship_status == "Married" || response.relationship_status == "In an open relationship") {
         document.getElementById("fb_relationship").style.visibility = "visible";
         relationship_keyword = 'romance';
+		hasrelationship = true;
       }
       else if (response.relationship_status == "Single" || response.relationship_status == "Widowed"
       || response.relationship_status == "Divorced") {
       	document.getElementById("fb_relationship").style.visibility = "visible";
         relationship_keyword = 'dating';
+		hasrelationship = true;
       }
       callback(response);
+	  slideout();
     });
   }
   
