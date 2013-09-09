@@ -9,6 +9,8 @@ var houseObjectsArray = new Array();
 var myLocationsArray = new Array();
 var sliderValues = Array();
 var index = 0;
+var start = 10;
+var stop = 20;
 
 /** START CONTROL BUTTON */
 function StartControl(controlDiv, map) {
@@ -93,7 +95,7 @@ map: map
 function getAddresses(){
 
 	/** GEOCODING OF SCRAPED DATA */
-	d3.csv("data/data.csv", function(housedata) {
+	d3.csv("data/Detailed.csv", function(housedata) {
 
 			// As of now, we will read in data from a file. We hope to do it from the server.
 			for (var i = 0; i < housedata.length; i++) {
@@ -107,6 +109,12 @@ function getAddresses(){
 
 				myHouse.lat = latitude;
 				myHouse.lng = longitude;
+				myHouse.add = housedata[i].address;
+				myHouse.features = housedata[i].features;
+				myHouse.price = housedata[i].price;
+				myHouse.gender = housedata[i].gender;
+				myHouse.listed = housedata[i].listed;
+				myHouse.expires = housedata[i].expires;
 				myHouse.desiredLocations = [];
 				myHouse.edgeWeight = 0;
 				myHouse.rank = 0;
@@ -200,6 +208,7 @@ map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(StartControlDiv);
 
 function calculate()
 {
+$("#click").text("Please wait patiently, while our complex algorithm crunches your data...");
 	var newLocationsArray = new Array();
 	for(var j = 0; j < myLocationsArray.length; j++){
 
@@ -242,16 +251,19 @@ var swapped;
             }
         }
     } while (swapped);
-  for (var i=0; i < houseObjectsArray.length; i++) {
-			var geocoder = new google.maps.Geocoder();
-			geocoder.geocode({'latLng': new google.maps.LatLng(houseObjectsArray[i].lat, houseObjectsArray[i].lng)}, function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-				if (results[1]) {
-				var newDiv = "<h3>" +results[1].formatted_address+ "</h3><div><p></p></div>";
+  for (var i=0; i < 50; i++) {
+
+				
+				
+				var newDiv = "<h3>" +houseObjectsArray[i].add+ "</h3><div><h4>Features</h4><p>"+houseObjectsArray[i].features+"</p><h4>Price</h4><p>"+houseObjectsArray[i].price+"</p><h4>Gender</h4><p>"+houseObjectsArray[i].gender+"</p><h4>Listed</h4><p>"+houseObjectsArray[i].listed+"</p><h4>Expires</h4><p>"+houseObjectsArray[i].expires+"</p><button onclick = 'displayHouseMarker( new google.maps.LatLng("+houseObjectsArray[i].lat+","+houseObjectsArray[i].lng+"), map)'>Place on map!</button></div>";
 				$('#resultsdiv').append(newDiv);
-				$('#resultsdiv').accordion("refresh");}}});
+				$('#resultsdiv').accordion("refresh");}
+
+$("#click").text("Hover to the left of your screen for your results!");
 	}
-}
+
+
+
 
 
 google.maps.event.addDomListener(window, 'load', initialize);

@@ -116,12 +116,22 @@ var geocoder = new google.maps.Geocoder();
 	   	  var myLocation = new Object();
 			myLocation.lat = results[0].geometry.location.lat();
 			myLocation.lng = results[0].geometry.location.lng();
-			myLocation.latlng =  new google.maps.LatLng(latitude,longitude);
+			myLocation.latlng =  new google.maps.LatLng(myLocation.lat,myLocation.lng);
+			var position =  new google.maps.LatLng(myLocation.lat,myLocation.lng);
 				if (results[1]) {
 				selections++; 
 
 				var newDiv = "<h3>" +results[1].formatted_address + "</h3><div id = result" + selections +"><p><label id = slidertext"+selections+">Importance:</label></p><div id = slider"+selections+"></div></div>";
-				myLocation.address = results[1].formatted_address;
+				myLocation.address = results[1].formatted_address;}
+
+else{
+	selections++; 
+
+
+				var newDiv = "<h3>Location of Desire No." +selections + "</h3><div id = result" + selections +"><p><label id = slidertext"+selections+">Importance:</label></p><div id = slider"+selections+"></div></div>";
+				myLocation.address = "<h3>Location of Desire No." +selections;
+
+}
 				myLocation.importance = 0;
 				myLocationsArray.push(myLocation);
 
@@ -144,9 +154,9 @@ sliderValues[jQuery.data(sliderpointer, "pointer").id] = ui.value;
 
 });
 
-}
 
- 		 } 
+
+ 		  
  		 var marker = new google.maps.Marker({
     map: map,
     position: position,
@@ -155,18 +165,18 @@ sliderValues[jQuery.data(sliderpointer, "pointer").id] = ui.value;
     
   });
  		 map.panTo(position);
-	}); 
+	} 
 
   
-}
+});
 
+}
 function toggleVisibility(id) {
 if (document.getElementById(id).style.visibility == "visible") {
 	document.getElementById(id).style.visibility = "hidden";
 	removeMarkers();
 	}
 else { document.getElementById(id).style.visibility = "visible"; }
-
 }
 
 
@@ -201,12 +211,19 @@ function callback(results, status) {
   }
 }
 
-function createMarker(place) {
-  var marker = new google.maps.Marker({
-    map: map,
-    position: place.geometry.location,
-    icon: "http://maps.google.com/mapfiles/kml/pal2/icon11.png"
-  });
+function createMarker(place, keyword) {
+var key_icon;
+if (keyword == 'religion') {
+key_icon = 'http://maps.google.com/mapfiles/kml/pal2/icon11.png';
+}
+if (keyword == 'relationship') {
+key_icon = 'http://iconizer.net/files/Kiwi/orig/Heart.png';
+}
+var marker = new google.maps.Marker({
+map: map,
+position: place.geometry.location,
+icon: key_icon
+});
 markersArray.push(marker);
 
 

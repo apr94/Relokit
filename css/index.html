@@ -10,54 +10,49 @@
   <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script src="js/googlecalendar.js"></script>
     <script src="lib/d3/d3.js" charset="utf-8"></script>
     <script src="js/jquery.js" charset="utf-8"></script>
+    
     <script src="js/mapscript.js"></script>
+    
+    <script>google.load("gdata", "1");
+  google.setOnLoadCallback(getMyFeed);</script>
+    
 	<script src="js/mapcontrols.js"></script>
    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script type="text/javascript" src="js/meny.js"></script> 
     <script src="js/facebook.js"></script>
+    
 	<script src="js/animatemenu.js"></script>
-	<script src="js/animatefacebook.js"></script>
-	
 
   
 
   </head>
-  <body>
+  <body onload="initialize">
+  
 <div id="fb-root"></div>
 <div id="description">
-<h1>Results</h1>
-<div id="resultsdiv">
-</div>
-</div>
 
+</div>
 
 
 <div id="mapcontainer">
-   <div id = "about"><a href = "http://www.relokit2.idealust.me"> About this site.. </a></div>
    <div id="map-canvas"></div>
    <div id="Straight-mask"></div>
-   <div id="facebook">
-	   <div class="fb_header"><b> Facebook Console <span id="extra-text">- Location Recomendations (NAME)<span></b> <div id="fb-container"><div id="fb" class="fb_text"><fb:login-button autologoutlink="true"></fb:login-button> <span id="toprofile"><b>to your profile...</b></span></div></b></div></div>
-  <!--<div id="fb-container"><div id="fb" class="fb_text"><fb:login-button autologoutlink="true"></fb:login-button></div></b></div>-->
-   <div class="console-element" id="fb_religion"><div class="fb_text"> Your religion is <religion_text></religion_text> Would you like to generate places of worship?  <button class="fb_button generate" onclick="showMarkers('religion')">Generate</button>  <button class="fb_button clear" onclick="removeMarkers()">Clear</button></div></div>
-   <div class="console-element" id="fb_relationship "><div class="fb_text"> You are: <relationship_text></relationship_text>. Would you like to generate romantic places? <button class="fb_button generate" onclick="showMarkers('relationship')">Generate</button>  <button class="fb_button clear" onclick="removeMarkers()">Clear</button></div></div>
+  <div id="fb-container"><div class="fb_header"><b>< Facebook Console<br/></div><div id="fb" class="fb_text"><fb:login-button autologoutlink="true"></fb:login-button></div></b></div>
+   <div id="fb_religion"><div class="fb_header"><b>Place Recommendations</b></div><div class="fb_text"> Your religion is <religion_text></religion_text>.<br/> Would you like to generate places?  <br/><button class="fb_button" onclick="showMarkers('religion')">Generate</button>  <button class="fb_button" onclick="removeMarkers()">Clear</button></div></div>
+   <div id="fb_relationship"><div class="fb_header"><b>Place Recommendations</b></div><div class="fb_text"> You are: <relationship_text></relationship_text>.<br/>Would you like to generate places? <br/><button class="fb_button" onclick="showMarkers('relationship')">Generate</button>  <button class="fb_button" onclick="removeMarkers()">Clear</button></div></div>
    <div id="fb_likes">From your likes, you seem to <likes></likes> <a onclick="toggleVisibility('fb_likes')"><u>Close</u></a><br/><button onclick="showMarkers('likes')">Generate</button>  <button onclick="removeMarkers()">Clear</button></div>
-   
-   <div class="console-element"><div class="fb_text"> <b>------- End of Console Recommendations ------ </b></div></div>
-</div><!-- END FACEBOOK -->
-<div id="toggle_houses"><button class="fb_button" onclick="toggleHouses()">Toggle Houses</button></div>
+      <div id="googlecalendar"><button class="fb_button" onclick="writecalendar()">Fetch Google Calendar</button></div>
+   <div id="calendar_display"></div> 
    <div id="arrow"></div>
    <div id="door-knob"></div>
+
    <div id="place-markers"  onclick="place_some_markers()"></div>
-   <button id="expander" onclick="expand()"></button>
-   
-   <div id="menu" >
-	   
-	   
-	   
-	   <div id="formdiv">
+   <div id="menu" onclick="expand()">
+   <div id="formdiv">
 <form style="width: 280px">
 <p>
 <label for="amount">Rent range per month:</label>
@@ -72,7 +67,7 @@
 </form>
     </div>
 <div id="locationsdiv"></div>
-<div id = "buttondiv" onclick = "calculate()"><button>Go!</button><p id = "click"></p></div>
+<div id = "buttondiv" onclick = "calculate()"><button>Go!</button></div>
 </div>
 </div>
 

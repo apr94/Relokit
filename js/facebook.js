@@ -66,6 +66,8 @@
   /** Mines user's religion and relationship status */ 
   function FBAPI_profile(callback) {
     FB.api('/me', function(response) {
+       $("religion_text").text(response.religion); 
+       $("relationship_text").text(response.relationship_status); 
     // Religion
       if (response.religion == "Christian" || response.religion == "Christianity"
       || response.religion == "Catholic" || response.religion == "Catholicism") {
@@ -116,12 +118,22 @@ var geocoder = new google.maps.Geocoder();
 	   	  var myLocation = new Object();
 			myLocation.lat = results[0].geometry.location.lat();
 			myLocation.lng = results[0].geometry.location.lng();
-			myLocation.latlng =  new google.maps.LatLng(latitude,longitude);
+			myLocation.latlng =  new google.maps.LatLng(myLocation.lat,myLocation.lng);
+			var position =  new google.maps.LatLng(myLocation.lat,myLocation.lng);
 				if (results[1]) {
 				selections++; 
 
 				var newDiv = "<h3>" +results[1].formatted_address + "</h3><div id = result" + selections +"><p><label id = slidertext"+selections+">Importance:</label></p><div id = slider"+selections+"></div></div>";
-				myLocation.address = results[1].formatted_address;
+				myLocation.address = results[1].formatted_address;}
+
+else{
+	selections++; 
+
+
+				var newDiv = "<h3>Location of Desire No." +selections + "</h3><div id = result" + selections +"><p><label id = slidertext"+selections+">Importance:</label></p><div id = slider"+selections+"></div></div>";
+				myLocation.address = "<h3>Location of Desire No." +selections;
+
+}
 				myLocation.importance = 0;
 				myLocationsArray.push(myLocation);
 
@@ -144,9 +156,9 @@ sliderValues[jQuery.data(sliderpointer, "pointer").id] = ui.value;
 
 });
 
-}
 
- 		 } 
+
+ 		  
  		 var marker = new google.maps.Marker({
     map: map,
     position: position,
@@ -155,18 +167,18 @@ sliderValues[jQuery.data(sliderpointer, "pointer").id] = ui.value;
     
   });
  		 map.panTo(position);
-	}); 
+	} 
 
   
-}
+});
 
+}
 function toggleVisibility(id) {
 if (document.getElementById(id).style.visibility == "visible") {
 	document.getElementById(id).style.visibility = "hidden";
 	removeMarkers();
 	}
 else { document.getElementById(id).style.visibility = "visible"; }
-
 }
 
 
