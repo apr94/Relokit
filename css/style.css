@@ -280,7 +280,8 @@ overflow: auto;
 	width: 350px;
 	left:97.4%;
 	overflow: auto;
-	padding :10px;
+	padding :15px;
+	padding-top: 25px;
 	
 	
 	background: #eeeeee; /* Old browsers */
@@ -320,22 +321,23 @@ overflow: auto;
 	font-size:23px;
 */
 	
-	width:				50px;
-	height:				48px;
+	width:				45px;
+	height:				45px;
 	position:			absolute;
-	left:				97.45%;
-	top:				0.5%;
-	background: url('arrow-left(grey).png') no-repeat;
+	left:				97.7%;
+	top:				1.0%;
+	background-color: transparent;
+	background: url('arrow-left(grey).png') center;
 	z-index:			1000000;
 }
 #expander:hover{
 	
-	width:				50px;
-	height:				48px;
+	width:				45px;
+	height:				45px;
 	position:			absolute;
-	left:				97.45%;
-	top:				0.5%;
-	background: url('arrow-left(black).png') no-repeat;
+	left:				97.7%;
+	top:				1.0%;
+	background: url('arrow-left(black).png') center;
 	z-index:			1000000;
 }
 
