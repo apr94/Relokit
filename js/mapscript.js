@@ -91,7 +91,13 @@ function displayHouseMarker(position, map) {
 	});
 }
 
-function displayGeneratedHouseMarker(position, map){
+function makeInfoWindowEvent(map, infowindow, marker) {
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map, marker);
+  });
+}
+
+function displayGeneratedHouseMarker(position, map, con){
 	var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 	var marker = new google.maps.Marker({
 		position: position,
@@ -99,6 +105,11 @@ function displayGeneratedHouseMarker(position, map){
 		icon: iconBase + 'schools_maps.png',
 		shadow: iconBase + 'schools_maps.shadow.png'
 	});
+	var infowindow = new google.maps.InfoWindow({
+		content: con
+	});
+
+	makeInfoWindowEvent(map, infowindow, marker);
 
 }
 
@@ -268,9 +279,15 @@ function calculate()
 
 	for (var i=0; i < 15; i++) {
 
+		var content = "<h3>" +houseObjectsArray[i].add+ "</h3><div><h4>Average distance from Preferred Locations</h4><p>"+houseObjectsArray[i].edgeWeight+" miles</p><h4>Features</h4><p>"+houseObjectsArray[i].features+"</p><h4>Price</h4><p>"+houseObjectsArray[i].price+"</p><h4>Gender</h4><p>"+houseObjectsArray[i].gender+"</p><h4>Listed</h4><p>"+houseObjectsArray[i].listed+"</p><h4>Expires</h4><p>"+houseObjectsArray[i].expires+"</p>"
+
+		var newDiv = content+"<button onclick = 'displayGeneratedHouseMarker( new google.maps.LatLng("+houseObjectsArray[i].lat+","+houseObjectsArray[i].lng+"), map, content.toString())'>Place on map!</button></div>";
 
 
-		var newDiv = "<h3>" +houseObjectsArray[i].add+ "</h3><div><h4>Average distance from Preferred Locations</h4><p>"+houseObjectsArray[i].edgeWeight+" miles</p><h4>Features</h4><p>"+houseObjectsArray[i].features+"</p><h4>Price</h4><p>"+houseObjectsArray[i].price+"</p><h4>Gender</h4><p>"+houseObjectsArray[i].gender+"</p><h4>Listed</h4><p>"+houseObjectsArray[i].listed+"</p><h4>Expires</h4><p>"+houseObjectsArray[i].expires+"</p><button onclick = 'displayGeneratedHouseMarker( new google.maps.LatLng("+houseObjectsArray[i].lat+","+houseObjectsArray[i].lng+"), map)'>Place on map!</button></div>";
+		
+
+
+
 		$('#resultsdiv').append(newDiv);
 		$('#resultsdiv').accordion("refresh");}
 
