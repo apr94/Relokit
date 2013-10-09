@@ -138,6 +138,7 @@ function getAddresses(){
 				myHouse.gender = housedata[i].gender;
 				myHouse.listed = housedata[i].listed;
 				myHouse.expires = housedata[i].expires;
+				myHouse.contact = "(215)-" + (Math.floor(Math.random() * (999 - 100 + 1)) + 100).toString() + "-" + (Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000).toString();
 				myHouse.desiredLocations = [];
 				myHouse.edgeWeight = 0;
 				myHouse.rank = 0;
@@ -280,7 +281,7 @@ function calculate()
 
 	for (var i=0; i < 15; i++) {
 
-		var cont = "<h3>" +houseObjectsArray[i].add+ "</h3><div><h4>Average distance from Preferred Locations</h4><p>"+houseObjectsArray[i].edgeWeight+" miles</p><h4>Features</h4><p>"+houseObjectsArray[i].features+"</p><h4>Price</h4><p>"+houseObjectsArray[i].price+"</p><h4>Gender</h4><p>"+houseObjectsArray[i].gender+"</p><h4>Listed</h4><p>"+houseObjectsArray[i].listed+"</p><h4>Expires</h4><p>"+houseObjectsArray[i].expires+"</p>"
+		var cont = "<h3>" +houseObjectsArray[i].add+ "</h3><div><h4>Average Distance from Preferred Locations</h4><p>"+houseObjectsArray[i].edgeWeight+" miles</p><h4>Features</h4><p>"+houseObjectsArray[i].features+"</p><h4>Price</h4><p>$ "+houseObjectsArray[i].price+"</p><h4>Gender</h4><p>"+houseObjectsArray[i].gender+"</p><h4>Expires</h4><p>"+houseObjectsArray[i].expires+"</p><h4>Contact Information</h4><p> Phone: "+houseObjectsArray[i].contact+"</p>"
 		infoWindows.push(cont);
 		var newDiv = cont+"<button onclick = 'displayGeneratedHouseMarker( new google.maps.LatLng("+houseObjectsArray[i].lat+","+houseObjectsArray[i].lng+"), map, infoWindows[parseInt("+i+")])'>Place on map!</button></div>";
 
