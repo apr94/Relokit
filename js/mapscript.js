@@ -11,6 +11,7 @@ var sliderValues = Array();
 var index = 0;
 var start = 10;
 var stop = 20;
+var infoWindows = new Array();
 
 /** START CONTROL BUTTON */
 function StartControl(controlDiv, map) {
@@ -279,9 +280,9 @@ function calculate()
 
 	for (var i=0; i < 15; i++) {
 
-		var content = "<h3>" +houseObjectsArray[i].add+ "</h3><div><h4>Average distance from Preferred Locations</h4><p>"+houseObjectsArray[i].edgeWeight+" miles</p><h4>Features</h4><p>"+houseObjectsArray[i].features+"</p><h4>Price</h4><p>"+houseObjectsArray[i].price+"</p><h4>Gender</h4><p>"+houseObjectsArray[i].gender+"</p><h4>Listed</h4><p>"+houseObjectsArray[i].listed+"</p><h4>Expires</h4><p>"+houseObjectsArray[i].expires+"</p>"
-
-		var newDiv = content+"<button onclick = 'displayGeneratedHouseMarker( new google.maps.LatLng("+houseObjectsArray[i].lat+","+houseObjectsArray[i].lng+"), map, content.toString())'>Place on map!</button></div>";
+		var cont = "<h3>" +houseObjectsArray[i].add+ "</h3><div><h4>Average distance from Preferred Locations</h4><p>"+houseObjectsArray[i].edgeWeight+" miles</p><h4>Features</h4><p>"+houseObjectsArray[i].features+"</p><h4>Price</h4><p>"+houseObjectsArray[i].price+"</p><h4>Gender</h4><p>"+houseObjectsArray[i].gender+"</p><h4>Listed</h4><p>"+houseObjectsArray[i].listed+"</p><h4>Expires</h4><p>"+houseObjectsArray[i].expires+"</p>"
+		infoWindows.push(cont);
+		var newDiv = cont+"<button onclick = 'displayGeneratedHouseMarker( new google.maps.LatLng("+houseObjectsArray[i].lat+","+houseObjectsArray[i].lng+"), map, infoWindows[parseInt("+i+")])'>Place on map!</button></div>";
 
 
 		
